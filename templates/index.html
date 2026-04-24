@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Disaster Information and Emergency Contact System</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23123d4d'/%3E%3Cpath d='M32 12 52 50H12Z' fill='%23fff4da'/%3E%3Ccircle cx='32' cy='40' r='4' fill='%23123d4d'/%3E%3Crect x='29.5' y='24' width='5' height='11' fill='%23123d4d'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="page-glow page-glow-left"></div>
+  <div class="page-glow page-glow-right"></div>
+
+  <section id="login-view" class="login-view hidden">
+    <div class="login-shell">
+      <div class="login-copy card">
+        <div class="brand-mark">CDIECS</div>
+        <p class="eyebrow">Partido State University Prototype</p>
+        <h1>Community Disaster Information and Emergency Contact System</h1>
+      </div>
+
+      <div class="login-panel card">
+        <div>
+          <p class="eyebrow">Admin Access</p>
+          <h2>Sign in to manage records</h2>
+        </div>
+        <form id="login-form" class="stack-form">
+          <label>
+            <span>Username</span>
+            <input id="login-username" name="username" type="text" autocomplete="username" required>
+          </label>
+          <label>
+            <span>Password</span>
+            <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+          </label>
+          <button type="submit" class="primary-btn wide-btn">Login</button>
+          <button id="close-login-btn" type="button" class="ghost-btn wide-btn">Return to Public View</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div id="app-shell" class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-block">
+        <div class="brand-mark">CDIECS</div>
+        <p class="eyebrow">Partido State University</p>
+        <h2>Community Disaster Information and Emergency Contact System</h2>
+      </div>
+      <nav class="nav-list">
+        <button class="nav-btn active" data-section-target="dashboard">Dashboard</button>
+        <button class="nav-btn" data-section-target="communities">Communities</button>
+        <button class="nav-btn" data-section-target="users">Users</button>
+        <button class="nav-btn" data-section-target="organizations">Agencies</button>
+        <button class="nav-btn" data-section-target="contacts">Contacts</button>
+        <button class="nav-btn" data-section-target="disasters">Alerts</button>
+        <button class="nav-btn" data-section-target="centers">Centers</button>
+      </nav>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-main">
+          <p class="eyebrow">Community Bulletin Board</p>
+          <h1>Emergency contacts, alerts, and local records</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="tool-cluster">
+            <button id="export-btn" class="ghost-btn">Export JSON</button>
+            <button id="export-txt-btn" class="ghost-btn">Export TXT</button>
+            <button id="export-erd-btn" class="ghost-btn">Export ERD TXT</button>
+          </div>
+          <div class="session-cluster">
+            <div class="user-pill">
+              <span id="user-name">Public Bulletin</span>
+              <strong id="user-role">Read-Only Access</strong>
+            </div>
+            <button id="admin-login-btn" class="primary-btn">Login</button>
+            <button id="logout-btn" class="ghost-btn">Log Out</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="workspace-body">
+        <section id="dashboard-section" class="content-section active">
+          <div id="dashboard-content"></div>
+        </section>
+
+        <section id="communities-section" class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Community Registry</p>
+              <h2>Communities</h2>
+            </div>
+            <div class="section-controls">
+              <input id="communities-search" class="search-input" type="search" placeholder="Search communities">
+              <button id="add-community-btn" class="primary-btn hidden">New Community</button>
+            </div>
+          </div>
+          <div id="communities-content" class="card-grid uniform-grid"></div>
+        </section>
+
+        <section id="users-section" class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Role Management</p>
+              <h2>Users</h2>
+            </div>
+            <div class="section-controls">
+              <input id="users-search" class="search-input" type="search" placeholder="Search users">
+              <button id="add-user-btn" class="primary-btn hidden">New User</button>
+            </div>
+          </div>
+          <div id="users-content" class="table-shell"></div>
+        </section>
+
+        <section id="organizations-section" class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Response Network</p>
+              <h2>Organizations</h2>
+            </div>
+            <div class="section-controls">
+              <input id="organizations-search" class="search-input" type="search" placeholder="Search organizations">
+              <button id="add-organization-btn" class="primary-btn hidden">New Organization</button>
+            </div>
+          </div>
+          <div id="organizations-content" class="card-grid uniform-grid"></div>
+        </section>
+
+        <section id="contacts-section" class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Emergency Directory</p>
+              <h2>Emergency Contacts</h2>
+            </div>
+            <div class="section-controls">
+              <input id="contacts-search" class="search-input" type="search" placeholder="Search contacts">
+              <button id="add-contact-btn" class="primary-btn hidden">New Contact</button>
+            </div>
+          </div>
+          <div id="contacts-content" class="card-grid uniform-grid"></div>
+        </section>
+
+        <section id="disasters-section" class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Incident Timeline</p>
+              <h2>Disasters & Announcements</h2>
+            </div>
+            <div class="section-controls">
+              <input id="disasters-search" class="search-input" type="search" placeholder="Search incidents or alerts">
+              <button id="add-disaster-btn" class="primary-btn hidden">New Disaster</button>
+            </div>
+          </div>
+          <div id="disasters-content" class="stack-grid"></div>
+        </section>
+
+        <section id="centers-section" class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Evacuation Planning</p>
+              <h2>Evacuation Centers</h2>
+            </div>
+            <div class="section-controls">
+              <input id="centers-search" class="search-input" type="search" placeholder="Search centers">
+              <button id="add-center-btn" class="primary-btn hidden">New Center</button>
+            </div>
+          </div>
+          <div id="centers-content" class="card-grid uniform-grid"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="modal-overlay" class="modal-overlay hidden"></div>
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
